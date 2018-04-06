@@ -4,10 +4,45 @@
   <meta charset="utf-8">
   <title>Ui</title>
   <base href="/">
+  <script src="DragDropTouch.js"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    .drag-border {
+      border: #ff525b dashed 2px;
+    }
+
+    .drag-handle {
+      cursor: move; /* fallback if grab cursor is unsupported */
+      cursor: grab;
+      cursor: -moz-grab;
+      cursor: -webkit-grab;
+    }
+
+    .drag-handle:active {
+      cursor: grabbing;
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
+    }
+
+    /* Droppable */
+
+    .drag-hint-border {
+      border: #3c763d dashed 2px;
+    }
+
+    .drag-over-border {
+      border: #fbbc05 dashed 2px;
+    }
+
+    .drag-transit {
+      border: #3500FF dashed 2px;
+    }
+  </style>
+
 </head>
 <body>
   <app-root></app-root>
