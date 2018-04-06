@@ -47,7 +47,7 @@ func (s *Service) GimmePlaces(ctx context.Context, in *PlaceRequest) (*Places, e
 	)
 
 	if err != nil {
-		return nil, err
+		return &Places{}, nil
 	}
 
 	places := &Places{
