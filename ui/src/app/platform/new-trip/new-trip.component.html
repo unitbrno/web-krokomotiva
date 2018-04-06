@@ -26,8 +26,8 @@
 
   <div fxLayout="column" fxLayoutGap="8px">
     <div fxLayout="row" fxLayoutGap="8px" class="categories">
-      <mat-card *ngFor="let c of categories" fxFlex="grow">
-        <img  class="category" mat-card-image [(src)]="c.img">
+      <mat-card *ngFor="let c of categories" (click)="selectCategory(c)" fxFlex="grow">
+        <img class="category" [class.unselected]="!c.select" mat-card-image [(src)]="c.img">
         <mat-card-title>
             {{c.name}}
         </mat-card-title>

@@ -11,13 +11,15 @@ import { AngularFirestore } from 'angularfire2/firestore';
 export class NewTripComponent implements OnInit {
 
   categories = [
-    {name: 'Theaters', img: 'assets/categories/theaters.jpg'},
-    {name: 'Restaurants', img: 'assets/categories/restaurants.jpg'},
-    {name: 'Night Clubs', img: 'assets/categories/night-clubs.jpg'},
-    {name: 'Bars', img: 'assets/categories/bars.jpg'},
-    {name: 'Parks', img: 'assets/categories/parks.jpg'},
-    {name: 'Coffee Shops', img: 'assets/categories/coffee-shops.jpg'}
+    {name: 'Theaters', img: 'assets/categories/theaters.jpg', select: false},
+    {name: 'Restaurants', img: 'assets/categories/restaurants.jpg', select: false},
+    {name: 'Night Clubs', img: 'assets/categories/night-clubs.jpg', select: false},
+    {name: 'Bars', img: 'assets/categories/bars.jpg', select: false},
+    {name: 'Parks', img: 'assets/categories/parks.jpg', select: false},
+    {name: 'Coffee Shops', img: 'assets/categories/coffee-shops.jpg', select: false}
   ]
+
+  selectedCategory: any;
 
   constructor(public api: ApiClientService, public db: AngularFirestore) { }
 
@@ -43,6 +45,14 @@ export class NewTripComponent implements OnInit {
         { timeout: 1500 }
       );
     })
+  }
+
+  selectCategory(category) {
+    if (this.selectedCategory !== undefined) {
+      this.selectedCategory.select = false;
+    }
+    category.select = true;
+    this.selectedCategory = category;
   }
 
 }
