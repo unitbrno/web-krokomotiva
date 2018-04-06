@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {MatButtonModule, MatCheckboxModule, MatCardModule, MatMenuModule,
   MatAutocompleteModule, MatInputModule, MatToolbarModule, MatListModule,
   MatIconModule, MatProgressBarModule, MatChipsModule, MatExpansionModule,
-  MatSelectModule, MatSliderModule, MatDatepickerModule
+  MatSelectModule, MatSliderModule, MatDatepickerModule, MatStepperModule
 } from '@angular/material';
 
 import { AngularFireModule } from 'angularfire2';
@@ -56,7 +56,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule, MatCheckboxModule, MatCardModule, MatAutocompleteModule,
     MatMenuModule, MatInputModule, MatToolbarModule, MatListModule,
     MatIconModule, MatProgressBarModule, MatChipsModule, MatExpansionModule,
-    MatSelectModule, MatSliderModule, MatDatepickerModule
+    MatSelectModule, MatSliderModule, MatDatepickerModule, MatStepperModule,
   ],
   providers: [
     ApiClientService,

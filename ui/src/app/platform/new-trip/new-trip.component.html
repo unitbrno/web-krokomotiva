@@ -1,17 +1,58 @@
-<mat-card>
-  <mat-card-header>
+<div fxLayout="column" fxLayoutGap="16px">
+
+  <mat-toolbar color="primary">
     <mat-icon [routerLink]="['', 'app']">arrow_back</mat-icon>
-    <mat-card-title>Nju TRIP</mat-card-title>
-    <mat-card-subtitle>Subtitle</mat-card-subtitle>
-  </mat-card-header>
-  <img matCardImage src="assets/new-trip.jpg">
-  <mat-card-content>
-    Text content
-  </mat-card-content>
-  <mat-card-actions align="start">
-    <button mat-button (click)="refreshPlaces()">Action1</button>
-  </mat-card-actions>
-  <mat-card-footer>
-    Footer
-  </mat-card-footer>
-</mat-card>
+    <span> &nbsp; Creating a New Trip</span>
+  </mat-toolbar>
+
+  <div fxLayout="column">
+    <mat-card>
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>folder</mat-icon>
+          Item 1
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>folder</mat-icon>
+          Item 2
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>folder</mat-icon>
+          Item 3
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+  </div>
+
+  <div fxLayout="column" fxLayoutGap="8px">
+    <div fxLayout="row" fxLayoutGap="8px" class="categories">
+      <mat-card *ngFor="let c of categories" fxFlex="grow">
+        {{c.name}}
+      </mat-card>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Advanced filtering
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div>
+          Price level
+          <mat-slider min="1" max="5" step="1" value="3" thumbLabel tickInterval="1"></mat-slider>
+        </div>
+
+        <mat-form-field>
+          <input matInput placeholder="Radius">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Transport">
+        </mat-form-field>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+</div>

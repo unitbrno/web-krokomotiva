@@ -10,13 +10,22 @@ import { AngularFirestore } from 'angularfire2/firestore';
 })
 export class NewTripComponent implements OnInit {
 
+  categories = [
+    {name: 'Theaters'},
+    {name: 'Restaurants'},
+    {name: 'Night Clubs'},
+    {name: 'Bars'},
+    {name: 'Parks'},
+    {name: 'Coffee Shops'}
+  ]
+
   constructor(public api: ApiClientService, public db: AngularFirestore) { }
 
   ngOnInit() {
-    this.getLocation({ lat: 16.590935, lng: 49.222653 })
+    this.getLocation({ lng: 16.590935, lat: 49.222653 })
       .then((pos) => {
         this.api
-          .gimmePlaces(1000, '', pos.lng, pos.lng, '', '', '')
+          .gimmePlaces(1000, '', pos.lng, pos.lat, '', '', '')
           .subscribe(console.log);
       })
   }
