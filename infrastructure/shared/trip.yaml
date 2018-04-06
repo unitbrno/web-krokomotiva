@@ -2,7 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: trip
-  namespace: web-krokomotiva
   labels:
     app: trip
 spec:
