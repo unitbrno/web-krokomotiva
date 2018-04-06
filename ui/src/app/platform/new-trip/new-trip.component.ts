@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ApiClientService, TripPlaces, TripPlace } from '../../../../api';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Local } from 'protractor/built/driverProviders';
 
@@ -43,9 +43,7 @@ export class NewTripComponent implements OnInit {
   searchResult$: Observable<TripPlace[]>;
 
   timeline = [
-    {name: "Get drunk", duration: 3600},
-    {name: "Get high", duration: 7200},
-    {name: "Get smashed", duration: 10}
+    {name: 'Start of your journey', duration: 600},
   ];
 
   constructor(public api: ApiClientService, public db: AngularFirestore) { }
