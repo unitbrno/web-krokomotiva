@@ -1,0 +1,34 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/flowup/drone-bazel/trip/cmd/trip",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//vendor/github.com/gelidus/web-krokomotiva/trip:go_default_library",
+        "//vendor/github.com/grpc-ecosystem/grpc-gateway/runtime:go_default_library",
+        "//vendor/github.com/sirupsen/logrus:go_default_library",
+        "//vendor/github.com/spf13/viper:go_default_library",
+        "//vendor/google.golang.org/grpc:go_default_library",
+        "//vendor/google.golang.org/grpc/reflection:go_default_library",
+    ],
+)
+
+go_image(
+    name = "trip",
+    pure = "on",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)
+
+container_push(
+    name = "push",
+    format = "Docker",
+    image = ":trip",
+    registry = "gcr.io",
+    repository = "flowcloud-153422/web-krokomotiva-trip",
+    tag = "$(COMMIT_HASH)",
+)

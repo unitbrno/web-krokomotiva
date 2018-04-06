@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package trip;
+option go_package = "github.com/gelidus/web-krokomotiva/trip";
+
+import "google/protobuf/empty.proto";
+import "core/protobuf/proto.proto";
+import "google/api/annotations.proto";
+
+service TripService {
+    rpc GetVersion (google.protobuf.Empty) returns (Version) {
+        option (google.api.http) = {
+            get: "/version"
+        };
+    }
+    rpc Check(core.HealthCheckRequest) returns (core.HealthCheckResponse);
+}
+
+message Version {
+    string name = 1;
+}

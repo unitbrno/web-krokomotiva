@@ -1,0 +1,46 @@
+---
+  swagger: "2.0"
+  info: 
+    version: "0.0.1"
+    title: "Swagger"
+    description: "All services\n"
+  host: "host"
+  basePath: "/"
+  schemes: 
+    - "http"
+    - "https"
+  consumes: 
+    - "application/json"
+  produces: 
+    - "application/json"
+  tags: []
+  definitions: 
+    HealthCheckResponseServingStatus: 
+      type: "string"
+      enum: 
+        - "UNKNOWN"
+        - "SERVING"
+        - "NOT_SERVING"
+      default: "UNKNOWN"
+    coreHealthCheckResponse: 
+      type: "object"
+      properties: 
+        status: 
+          $ref: "#/definitions/HealthCheckResponseServingStatus"
+    tripVersion: 
+      type: "object"
+      properties: 
+        name: 
+          type: "string"
+  paths: 
+    /version: 
+      get: 
+        operationId: "GetVersion"
+        responses: 
+          200: 
+            description: ""
+            schema: 
+              $ref: "#/definitions/tripVersion"
+        tags: 
+          - "TripService"
+
