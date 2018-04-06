@@ -47,4 +47,6 @@ message Place {
     string placeID = 4;
     string iconURL = 5;
     string address = 6;
+    double lat = 7;
+    double lng = 8;
 }

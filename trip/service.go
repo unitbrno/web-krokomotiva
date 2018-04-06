@@ -63,6 +63,8 @@ func (s *Service) GimmePlaces(ctx context.Context, in *PlaceRequest) (*Places, e
 			PriceLevel: int32(p.PriceLevel),
 			Rating:     p.Rating,
 			Address:    p.FormattedAddress,
+			Lat:        p.Geometry.Location.Lat,
+			Lng:        p.Geometry.Location.Lng,
 		})
 	}
 

@@ -44,6 +44,12 @@
           type: "string"
         address: 
           type: "string"
+        lat: 
+          type: "number"
+          format: "double"
+        lng: 
+          type: "number"
+          format: "double"
     tripPlaces: 
       type: "object"
       properties: 
