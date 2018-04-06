@@ -1,0 +1,33 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "proto.pb.go",
+        "proto.pb.gw.go",
+        "service.go",
+    ],
+    importpath = "github.com/gelidus/web-krokomotiva/trip",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//core:go_default_library",
+        "//vendor/github.com/golang/protobuf/proto:go_default_library",
+        "//vendor/github.com/golang/protobuf/ptypes/empty:go_default_library",
+        "//vendor/github.com/grpc-ecosystem/grpc-gateway/runtime:go_default_library",
+        "//vendor/github.com/grpc-ecosystem/grpc-gateway/utilities:go_default_library",
+        "//vendor/golang.org/x/net/context:go_default_library",
+        "//vendor/google.golang.org/genproto/googleapis/api/annotations:go_default_library",
+        "//vendor/google.golang.org/grpc:go_default_library",
+        "//vendor/google.golang.org/grpc/codes:go_default_library",
+        "//vendor/google.golang.org/grpc/grpclog:go_default_library",
+        "//vendor/google.golang.org/grpc/status:go_default_library",
+        "//vendor/googlemaps.github.io/maps:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["service_test.go"],
+    embed = [":go_default_library"],
+    deps = ["//vendor/github.com/stretchr/testify/suite:go_default_library"],
+)

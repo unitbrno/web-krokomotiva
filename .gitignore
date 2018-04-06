@@ -11,10 +11,10 @@
 *.out
 
 # Project-local glide cache
-.glide/
-vendor/
 .idea/
 
 # vscode related gitignore
 *.code-workspace
 .vscode/
+bazel-*
+.bazelrc
