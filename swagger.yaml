@@ -42,6 +42,8 @@
           type: "string"
         iconURL: 
           type: "string"
+        address: 
+          type: "string"
     tripPlaces: 
       type: "object"
       properties: 

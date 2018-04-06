@@ -46,4 +46,5 @@ message Place {
     float rating = 3;
     string placeID = 4;
     string iconURL = 5;
+    string address = 6;
 }
