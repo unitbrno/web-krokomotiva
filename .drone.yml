@@ -21,7 +21,7 @@ pipeline:
     cluster: krokomotiva
     zone: europe-west3-b
     project: peto-199916
-    cmd: apply -f infrastructure/shared/ -n tripipinator
+    cmd: apply -R -f infrastructure/ -n default
     pull: true
     when:
       event: push

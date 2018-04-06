@@ -2,7 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: tripipinator
-  namespace: tripipinator
 spec:
   rules:
   - http:
