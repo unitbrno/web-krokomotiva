@@ -65,5 +65,5 @@ func (s *Service) GimmePlaces(ctx context.Context, in *PlaceRequest) (*Places, e
 		})
 	}
 
-	return &Places{}, nil
+	return places, nil
 }

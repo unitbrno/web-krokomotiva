@@ -6,7 +6,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /tripipinator
+      - path: /*
         backend:
           serviceName: trip
           servicePort: 50080
