@@ -30,6 +30,7 @@ import { TakeMeAnywhereComponent } from './platform/take-me-anywhere/take-me-any
 
 import { ApiClientService } from '../../api';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { HttpClientModule } from '@angular/common/http';
       provide: 'domain',
       useValue: 'https://apikkmtv.flowup.cz'
     },
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })
