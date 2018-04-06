@@ -8,6 +8,13 @@ pipeline:
     cmd:
      - run --define COMMIT_HASH=${DRONE_COMMIT_SHA} //trip/cmd/trip:push
     secrets: [gcr_json_key]
+  template-k8s:
+    image: flowup/drone-sed
+    cmd: "-i 's#latest#${DRONE_COMMIT_SHA}#' infrastructure/shared/*.yaml"
+    pull: true
+    when:
+      event: [push, deployment]
+      branch: master
   deploy-backend:
     group: deploy
     image: flowup/drone-kubectl
