@@ -47,7 +47,7 @@ func (s *Service) GimmePlaces(ctx context.Context, in *PlaceRequest) (*Places, e
 	)
 
 	if err != nil {
-		return nil, err
+		return &Places{}, nil
 	}
 
 	places := &Places{
@@ -62,6 +62,7 @@ func (s *Service) GimmePlaces(ctx context.Context, in *PlaceRequest) (*Places, e
 			PlaceID:    p.PlaceID,
 			PriceLevel: int32(p.PriceLevel),
 			Rating:     p.Rating,
+			Address:    p.FormattedAddress,
 		})
 	}
 

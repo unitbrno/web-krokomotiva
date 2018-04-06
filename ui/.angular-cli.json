@@ -21,7 +21,7 @@
       "styles": [
         "styles.scss"
       ],
-      "scripts": [],
+      "scripts": ["./assets/DragDropTouch.js"],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -42,7 +42,7 @@
   },
   "lint": [
     {
-      "project": "src/tsconfig.app.json",
+      "project": "src/tscfonfig.app.json",
       "exclude": "**/node_modules/**"
     },
     {
