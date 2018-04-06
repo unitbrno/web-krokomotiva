@@ -1,3 +1,4 @@
+<script src="new-trip.component.ts"></script>
 <div fxLayout="column" fxLayoutGap="16px">
 
   <mat-toolbar color="primary">
@@ -8,17 +9,9 @@
   <div fxLayout="column">
     <mat-card>
       <mat-list role="list">
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>folder</mat-icon>
-          Item 1
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>folder</mat-icon>
-          Item 2
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>folder</mat-icon>
-          Item 3
+        <mat-list-item (onDrop)="onItemDrop($event, idx)" draggable droppable [dragData]="wrapItem(item, idx)" *ngFor="let item of timeline; let idx = index">
+          <div class="numberCircle">{{ idx + 1}}</div>
+          <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}}</div>
         </mat-list-item>
       </mat-list>
     </mat-card>

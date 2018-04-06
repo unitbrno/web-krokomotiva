@@ -36,7 +36,20 @@ export class NewTripComponent implements OnInit {
 
   searchResult$: Observable<TripPlace[]>;
 
+  timeline = [
+    {name: "Get drunk", duration: 3600},
+    {name: "Get high", duration: 7200},
+    {name: "Get smashed", duration: 10}
+
+  ];
+
   constructor(public api: ApiClientService, public db: AngularFirestore) { }
+  onItemDrop(e: any, id: number) {
+    // Get the dropped data here
+    let old = this.timeline[id];
+    this.timeline[id] = e.dragData;
+    this.timeline[e.dragData.index] = old;
+  }
 
   ngOnInit() {
     this.searchResult$ = combineLatest(
@@ -47,6 +60,10 @@ export class NewTripComponent implements OnInit {
         .gimmePlaces(1000, data[0], data[1].lng, data[1].lat, '', '', '')
         .map(d => d.places);
     })
+  }
+
+  wrapItem(item: Object, index: number): Object {
+    return {...item, index: index}
   }
 
   getLocation(): Promise<any> {
