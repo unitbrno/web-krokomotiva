@@ -17,34 +17,14 @@ spec:
     spec:
       containers:
       - name: trip
-        image: gcr.io/flowcloud-153422/web-krokomotiva-trip:latest
-        command: ['./trip'] 
+        image: gcr.io/peto-199916/web-krokomotiva-trip:latest
         ports: 
         - name: grpc
           containerPort: 50051
           protocol: TCP 
         - name: http-gateway
           containerPort: 50080
-          protocol: TCP 
-      - name: health
-        image: flowup/grpchc:1.0.0
-        ports:
-        - name: http
-          containerPort: 8080
           protocol: TCP
-        args: ["-service", "TripService", "-host", "127.0.0.1:50051"]
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 8080
-          initialDelaySeconds: 3
-          periodSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: 8080
-          initialDelaySeconds: 3
-          periodSeconds: 3
 ---
 kind: Service
 apiVersion: v1

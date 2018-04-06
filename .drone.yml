@@ -18,9 +18,9 @@ pipeline:
   deploy-backend:
     group: deploy
     image: flowup/drone-kubectl
-    cluster: galileo
-    zone: europe-west1-d
-    project: flowcloud-153422
+    cluster: krokomotiva
+    zone: europe-west3-b
+    project: peto-199916
     cmd: apply -f infrastructure/shared/ -n tripipinator
     pull: true
     when:

@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_binary")
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")
 
@@ -24,11 +24,17 @@ go_image(
     visibility = ["//visibility:public"],
 )
 
+go_binary(
+    name = "bin",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)
+
 container_push(
     name = "push",
     format = "Docker",
     image = ":trip",
     registry = "gcr.io",
-    repository = "flowcloud-153422/web-krokomotiva-trip",
+    repository = "peto-199916/web-krokomotiva-trip",
     tag = "$(COMMIT_HASH)",
 )
