@@ -21,12 +21,12 @@ interface Location {
 export class NewTripComponent implements OnInit {
 
   categories = [
-    { name: 'Theaters', img: 'assets/categories/theaters.jpg', select: false, id: '' },
-    { name: 'Restaurants', img: 'assets/categories/restaurants.jpg', select: false, id: '' },
-    { name: 'Night Clubs', img: 'assets/categories/night-clubs.jpg', select: false, id: '' },
-    { name: 'Bars', img: 'assets/categories/bars.jpg', select: false, id: '' },
-    { name: 'Parks', img: 'assets/categories/parks.jpg', select: false, id: '' },
-    { name: 'Coffee Shops', img: 'assets/categories/coffee-shops.jpg', select: false, id: '' }
+    { name: 'Theaters', img: 'assets/categories/theaters.jpg', select: false, id: 'movie_theater' },
+    { name: 'Restaurants', img: 'assets/categories/restaurants.jpg', select: false, id: 'restaurant' },
+    { name: 'Night Clubs', img: 'assets/categories/night-clubs.jpg', select: false, id: 'night_club' },
+    { name: 'Bars', img: 'assets/categories/bars.jpg', select: false, id: 'bar' },
+    { name: 'Parks', img: 'assets/categories/parks.jpg', select: false, id: 'park' },
+    { name: 'Coffee Shops', img: 'assets/categories/coffee-shops.jpg', select: false, id: 'cafe' }
   ]
 
   selectedCategory: any;
