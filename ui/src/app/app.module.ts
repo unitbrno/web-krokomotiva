@@ -12,13 +12,19 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { LandingComponent } from './landing/landing.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { PlatformComponent } from './platform/platform.component';
+import { BoardComponent } from './platform/board/board.component';
+import { NewTripComponent } from './platform/new-trip/new-trip.component';
+import { TakeMeAnywhereComponent } from './platform/take-me-anywhere/take-me-anywhere.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
-    DashboardComponent
+    PlatformComponent,
+    BoardComponent,
+    NewTripComponent,
+    TakeMeAnywhereComponent
   ],
   imports: [
     BrowserModule,
