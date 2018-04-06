@@ -30,6 +30,8 @@ import { TakeMeAnywhereComponent } from './platform/take-me-anywhere/take-me-any
 
 import { ApiClientService } from '../../api';
 import { HttpClientModule } from '@angular/common/http';
+import { MomentModule } from 'angular2-moment';
+import { NgDragDropModule } from 'ng-drag-drop';
 import { AuthGuard } from './auth.guard';
 
 @NgModule({
@@ -53,6 +55,9 @@ import { AuthGuard } from './auth.guard';
     FlexLayoutModule,
 
     HttpClientModule,
+
+    MomentModule,
+    NgDragDropModule.forRoot(),
 
     MatButtonModule, MatCheckboxModule, MatCardModule, MatAutocompleteModule,
     MatMenuModule, MatInputModule, MatToolbarModule, MatListModule,
