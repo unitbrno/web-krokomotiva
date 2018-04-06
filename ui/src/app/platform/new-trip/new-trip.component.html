@@ -62,8 +62,8 @@
         <h3 mat-subheader>Search Results</h3>
         <mat-list-item *ngFor="let p of searchResult$ | async" (click)="addToTimeline(p)">
           <img mat-list-icon [src]="p.iconURL" />
-          <h4 mat-line>{{p.name}}</h4>
-          <p mat-line> {{p | json}} </p>
+          <h4 mat-line>{{p.name}} ({{p.rating}}/5★)</h4>
+          <p mat-line> {{p.address}} </p>
           <mat-divider></mat-divider>
         </mat-list-item>
       </mat-list>
