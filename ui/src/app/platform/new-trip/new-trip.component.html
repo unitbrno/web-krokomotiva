@@ -27,7 +27,10 @@
   <div fxLayout="column" fxLayoutGap="8px">
     <div fxLayout="row" fxLayoutGap="8px" class="categories">
       <mat-card *ngFor="let c of categories" fxFlex="grow">
-        {{c.name}}
+        <img  class="category" mat-card-image [(src)]="c.img">
+        <mat-card-title>
+            {{c.name}}
+        </mat-card-title>
       </mat-card>
     </div>
 
