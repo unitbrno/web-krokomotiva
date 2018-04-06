@@ -18,22 +18,15 @@
 
   <mat-card>
     <img mat-card-image src="assets/new-trip.jpg">
-    <mat-card-content>
-      Plan new Trip
-    </mat-card-content>
-    <mat-card-actions align="start">
-      <button mat-button [routerLink]="['', 'app', 'new-trip']">Plan a New Trip</button>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [routerLink]="['', 'app', 'new-trip']">Plan a New Trip</button>
     </mat-card-actions>
   </mat-card>
 
   <mat-card fxFlex fxFill>
     <img mat-card-image src="assets/take-me.jpg">
-
-    <mat-card-content>
-      Take me anywhere
-    </mat-card-content>
-    <mat-card-actions align="start">
-        <button mat-button [routerLink]="['', 'app', 'take-me']">Take me anywhere</button>
+    <mat-card-actions align="center">
+        <button mat-raised-button color="primary" [routerLink]="['', 'app', 'take-me']">Take me anywhere</button>
       </mat-card-actions>
   </mat-card>
 </div>
