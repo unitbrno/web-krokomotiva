@@ -9,8 +9,17 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+import {MatButtonModule, MatCheckboxModule, MatCardModule, MatMenuModule,
+  MatAutocompleteModule, MatInputModule, MatToolbarModule, MatListModule,
+  MatIconModule, MatProgressBarModule, MatChipsModule, MatExpansionModule,
+  MatSelectModule, MatSliderModule, MatDatepickerModule
+} from '@angular/material';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import {FlexLayoutModule} from "@angular/flex-layout";
+
 import { LandingComponent } from './landing/landing.component';
 import { PlatformComponent } from './platform/platform.component';
 import { BoardComponent } from './platform/board/board.component';
@@ -32,7 +41,14 @@ import { TakeMeAnywhereComponent } from './platform/take-me-anywhere/take-me-any
     BrowserAnimationsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+
+    FlexLayoutModule,
+
+    MatButtonModule, MatCheckboxModule, MatCardModule, MatAutocompleteModule,
+    MatMenuModule, MatInputModule, MatToolbarModule, MatListModule,
+    MatIconModule, MatProgressBarModule, MatChipsModule, MatExpansionModule,
+    MatSelectModule, MatSliderModule, MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

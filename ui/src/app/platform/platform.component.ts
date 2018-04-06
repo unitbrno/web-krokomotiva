@@ -11,5 +11,4 @@ export class PlatformComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
