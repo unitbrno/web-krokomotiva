@@ -14,6 +14,7 @@ go_library(
         "//vendor/github.com/spf13/viper:go_default_library",
         "//vendor/google.golang.org/grpc:go_default_library",
         "//vendor/google.golang.org/grpc/reflection:go_default_library",
+        "//vendor/googlemaps.github.io/maps:go_default_library",
     ],
 )
 

@@ -25,6 +25,12 @@ spec:
         - name: http-gateway
           containerPort: 50080
           protocol: TCP
+        env:
+        - name: GOOGLE_MAPS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: maps-api-key
+              key: maps-api-key
 ---
 kind: Service
 apiVersion: v1

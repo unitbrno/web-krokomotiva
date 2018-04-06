@@ -12,10 +12,38 @@ service TripService {
         option (google.api.http) = {
             get: "/version"
         };
-    }
+    };
+    rpc GimmePlaces (PlaceRequest) returns (Places) {
+        option (google.api.http) = {
+            get: "/places"
+        };
+    };
     rpc Check(core.HealthCheckRequest) returns (core.HealthCheckResponse);
 }
 
 message Version {
     string name = 1;
+}
+
+message PlaceRequest {
+    uint32 radius = 1;
+    string placeType = 2;
+    double lng = 3;
+    double lat = 4;
+    string priceMin = 5;
+    string priceMax = 6;
+    string token = 7;
+}
+
+message Places {
+    repeated Place places = 1;
+    string nextToken = 2;
+}
+
+message Place {
+    string name = 1;
+    int32 priceLevel = 2;
+    float rating = 3;
+    string placeID = 4;
+    string iconURL = 5;
 }

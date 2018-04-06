@@ -27,12 +27,85 @@
       properties: 
         status: 
           $ref: "#/definitions/HealthCheckResponseServingStatus"
+    tripPlace: 
+      type: "object"
+      properties: 
+        name: 
+          type: "string"
+        priceLevel: 
+          type: "integer"
+          format: "int32"
+        rating: 
+          type: "number"
+          format: "float"
+        placeID: 
+          type: "string"
+        iconURL: 
+          type: "string"
+    tripPlaces: 
+      type: "object"
+      properties: 
+        places: 
+          type: "array"
+          items: 
+            $ref: "#/definitions/tripPlace"
+        nextToken: 
+          type: "string"
     tripVersion: 
       type: "object"
       properties: 
         name: 
           type: "string"
   paths: 
+    /places: 
+      get: 
+        operationId: "GimmePlaces"
+        responses: 
+          200: 
+            description: ""
+            schema: 
+              $ref: "#/definitions/tripPlaces"
+        parameters: 
+          - 
+            name: "radius"
+            in: "query"
+            required: false
+            type: "integer"
+            format: "int64"
+          - 
+            name: "placeType"
+            in: "query"
+            required: false
+            type: "string"
+          - 
+            name: "lng"
+            in: "query"
+            required: false
+            type: "number"
+            format: "double"
+          - 
+            name: "lat"
+            in: "query"
+            required: false
+            type: "number"
+            format: "double"
+          - 
+            name: "priceMin"
+            in: "query"
+            required: false
+            type: "string"
+          - 
+            name: "priceMax"
+            in: "query"
+            required: false
+            type: "string"
+          - 
+            name: "token"
+            in: "query"
+            required: false
+            type: "string"
+        tags: 
+          - "TripService"
     /version: 
       get: 
         operationId: "GetVersion"

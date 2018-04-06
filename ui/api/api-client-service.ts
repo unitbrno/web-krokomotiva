@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import {
   HealthCheckResponseServingStatus,
   CoreHealthCheckResponse,
+  TripPlace,
+  TripPlaces,
   TripVersion,
 } from '.';
 
@@ -37,6 +39,34 @@ export class ApiClientService {
       headers: options && options.headers ? options.headers : new HttpHeaders(),
       params: options && options.params ? options.params : new HttpParams()
     };
+  }
+
+  gimmePlaces(radius: number, placeType: string, lng: number, lat: number, priceMin: string, priceMax: string, token: string, options?: HttpOptions): Observable<TripPlaces> {
+    const path = `/places`;
+    options = {...this.options, ...options};
+
+    if (radius) {
+      options.params = options.params.set('radius', String(radius));
+    }
+    if (placeType) {
+      options.params = options.params.set('placeType', String(placeType));
+    }
+    if (lng) {
+      options.params = options.params.set('lng', String(lng));
+    }
+    if (lat) {
+      options.params = options.params.set('lat', String(lat));
+    }
+    if (priceMin) {
+      options.params = options.params.set('priceMin', String(priceMin));
+    }
+    if (priceMax) {
+      options.params = options.params.set('priceMax', String(priceMax));
+    }
+    if (token) {
+      options.params = options.params.set('token', String(token));
+    }
+    return this.sendRequest<TripPlaces>('GET', path, options);
   }
 
   getVersion(options?: HttpOptions): Observable<TripVersion> {

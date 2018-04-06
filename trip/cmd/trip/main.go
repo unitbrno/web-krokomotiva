@@ -13,6 +13,7 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	"googlemaps.github.io/maps"
 )
 
 func init() {
@@ -34,11 +35,13 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
+	mapsClient, err := maps.NewClient(maps.WithAPIKey(os.Getenv("GOOGLE_MAPS_API_KEY")))
+
 	// create the grpc server
 	s := grpc.NewServer()
 
 	// register the service
-	trip.RegisterTripServiceServer(s, trip.NewService())
+	trip.RegisterTripServiceServer(s, trip.NewService(mapsClient))
 
 	// Register reflection service on gRPC server.
 	reflection.Register(s)

@@ -21,6 +21,7 @@ go_library(
         "//vendor/google.golang.org/grpc/codes:go_default_library",
         "//vendor/google.golang.org/grpc/grpclog:go_default_library",
         "//vendor/google.golang.org/grpc/status:go_default_library",
+        "//vendor/googlemaps.github.io/maps:go_default_library",
     ],
 )
 
