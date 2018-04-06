@@ -5,10 +5,10 @@ load("@io_bazel_rules_docker//container:container.bzl", "container_push")
 go_library(
     name = "go_default_library",
     srcs = ["main.go"],
-    importpath = "github.com/flowup/drone-bazel/trip/cmd/trip",
+    importpath = "github.com/gelidus/web-krokomotiva/trip/cmd/trip",
     visibility = ["//visibility:private"],
     deps = [
-        "//vendor/github.com/gelidus/web-krokomotiva/trip:go_default_library",
+        "//trip:go_default_library",
         "//vendor/github.com/grpc-ecosystem/grpc-gateway/runtime:go_default_library",
         "//vendor/github.com/sirupsen/logrus:go_default_library",
         "//vendor/github.com/spf13/viper:go_default_library",
@@ -19,8 +19,8 @@ go_library(
 
 go_image(
     name = "trip",
-    pure = "on",
     embed = [":go_default_library"],
+    pure = "on",
     visibility = ["//visibility:public"],
 )
 

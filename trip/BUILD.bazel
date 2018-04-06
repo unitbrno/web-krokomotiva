@@ -7,10 +7,10 @@ go_library(
         "proto.pb.gw.go",
         "service.go",
     ],
-    importpath = "github.com/flowup/drone-bazel/trip",
+    importpath = "github.com/gelidus/web-krokomotiva/trip",
     visibility = ["//visibility:public"],
     deps = [
-        "//vendor/github.com/gelidus/web-krokomotiva/core:go_default_library",
+        "//core:go_default_library",
         "//vendor/github.com/golang/protobuf/proto:go_default_library",
         "//vendor/github.com/golang/protobuf/ptypes/empty:go_default_library",
         "//vendor/github.com/grpc-ecosystem/grpc-gateway/runtime:go_default_library",

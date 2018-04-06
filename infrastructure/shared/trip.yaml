@@ -60,4 +60,5 @@ spec:
       protocol: TCP 
     - name: http-gateway
       port: 50080
-      protocol: TCP 
+      protocol: TCP
+  type: NodePort
