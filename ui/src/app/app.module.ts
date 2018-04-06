@@ -17,6 +17,8 @@ import {MatButtonModule, MatCheckboxModule, MatCardModule, MatMenuModule,
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 
 import {FlexLayoutModule} from "@angular/flex-layout";
 
@@ -25,6 +27,9 @@ import { PlatformComponent } from './platform/platform.component';
 import { BoardComponent } from './platform/board/board.component';
 import { NewTripComponent } from './platform/new-trip/new-trip.component';
 import { TakeMeAnywhereComponent } from './platform/take-me-anywhere/take-me-anywhere.component';
+
+import { ApiClientService } from '../../api';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -42,15 +47,24 @@ import { TakeMeAnywhereComponent } from './platform/take-me-anywhere/take-me-any
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule,
 
     FlexLayoutModule,
+
+    HttpClientModule,
 
     MatButtonModule, MatCheckboxModule, MatCardModule, MatAutocompleteModule,
     MatMenuModule, MatInputModule, MatToolbarModule, MatListModule,
     MatIconModule, MatProgressBarModule, MatChipsModule, MatExpansionModule,
     MatSelectModule, MatSliderModule, MatDatepickerModule
   ],
-  providers: [],
+  providers: [
+    ApiClientService,
+    {
+      provide: 'domain',
+      useValue: 'https://apikkmtv.flowup.cz'
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

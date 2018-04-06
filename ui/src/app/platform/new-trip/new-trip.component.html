@@ -1,3 +1,17 @@
-<p>
-  new-trip works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-icon [routerLink]="['', 'app']">arrow_back</mat-icon>
+    <mat-card-title>Nju TRIP</mat-card-title>
+    <mat-card-subtitle>Subtitle</mat-card-subtitle>
+  </mat-card-header>
+  <img matCardImage src="https://images.pexels.com/photos/297755/pexels-photo-297755.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+  <mat-card-content>
+    Text content
+  </mat-card-content>
+  <mat-card-actions align="start">
+    <button mat-button (click)="refreshPlaces()">Action1</button>
+  </mat-card-actions>
+  <mat-card-footer>
+    Footer
+  </mat-card-footer>
+</mat-card>

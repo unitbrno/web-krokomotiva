@@ -22,7 +22,7 @@
       Plan new Trip
     </mat-card-content>
     <mat-card-actions align="start">
-      <button mat-button>Action1</button>
+      <button mat-button [routerLink]="['', 'app', 'new-trip']">Plan a New Trip</button>
     </mat-card-actions>
   </mat-card>
 
@@ -30,10 +30,10 @@
     <img mat-card-image src="https://images.pexels.com/photos/691637/pexels-photo-691637.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
 
     <mat-card-content>
-      Text content
+      Take me anywhere
     </mat-card-content>
     <mat-card-actions align="start">
-      <button mat-button>Action1</button>
-    </mat-card-actions>
+        <button mat-button [routerLink]="['', 'app', 'take-me']">Take me anywhere</button>
+      </mat-card-actions>
   </mat-card>
 </div>
