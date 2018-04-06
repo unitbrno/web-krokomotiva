@@ -33,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'angular2-moment';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { AuthGuard } from './auth.guard';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AuthGuard } from './auth.guard';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    FormsModule,
 
     FlexLayoutModule,
 

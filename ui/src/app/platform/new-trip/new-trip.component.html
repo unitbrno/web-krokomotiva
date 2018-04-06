@@ -1,6 +1,5 @@
 <script src="new-trip.component.ts"></script>
 <div fxLayout="column" fxLayoutGap="16px">
-
   <mat-toolbar color="primary">
     <mat-icon [routerLink]="['', 'app']">arrow_back</mat-icon>
     <span> &nbsp; Creating a New Trip</span>
@@ -8,12 +7,18 @@
 
   <div fxLayout="column">
     <mat-card>
+      <mat-card-header>
+        <mat-card-title>Trip timeline</mat-card-title>
+      </mat-card-header>
       <mat-list role="list">
         <mat-list-item (onDrop)="onItemDrop($event, idx)" draggable droppable [dragData]="wrapItem(item, idx)" *ngFor="let item of timeline; let idx = index">
           <div class="numberCircle">{{ idx + 1}}</div>
           <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}}</div>
         </mat-list-item>
       </mat-list>
+      <mat-card-actions align="center">
+          <button mat-button mat-button-raised color="primary">Start the Trip!</button>
+        </mat-card-actions>
     </mat-card>
   </div>
 
@@ -22,7 +27,7 @@
       <mat-card *ngFor="let c of categories" (click)="selectCategory(c)" fxFlex="grow">
         <img class="category" [class.unselected]="!c.select" mat-card-image [(src)]="c.img">
         <mat-card-title>
-            {{c.name}}
+          {{c.name}}
         </mat-card-title>
       </mat-card>
     </div>
@@ -41,7 +46,8 @@
         </div>
 
         <mat-form-field>
-          <input matInput placeholder="Radius">
+          <input [ngModel]="radius" (ngModelChange)="setRadius($event)"
+          matInput type="number" placeholder="Radius">
         </mat-form-field>
 
         <mat-form-field>
@@ -51,8 +57,16 @@
     </mat-accordion>
   </div>
 
-  <div *ngFor="let p of searchResult$ | async">
-    {{p | json}}
-  </div>
+  <mat-card>
+    <mat-list>
+        <h3 mat-subheader>Search Results</h3>
+        <mat-list-item *ngFor="let p of searchResult$ | async" (click)="addToTimeline(p)">
+          <img mat-list-icon [src]="p.iconURL" />
+          <h4 mat-line>{{p.name}}</h4>
+          <p mat-line> {{p | json}} </p>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+  </mat-card>
 
 </div>

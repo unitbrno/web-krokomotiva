@@ -7,6 +7,9 @@ import { Local } from 'protractor/built/driverProviders';
 
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
+import 'rxjs/add/operator/debounce';
+import { timer } from 'rxjs/observable/timer';
+
 
 interface Location {
   lat: number;
@@ -20,8 +23,10 @@ interface Location {
 })
 export class NewTripComponent implements OnInit {
 
+  radius = 1000;
+
   categories = [
-    { name: 'Theaters', img: 'assets/categories/theaters.jpg', select: false, id: 'movie_theater' },
+    { name: 'Theaters', img: 'assets/categories/theaters.jpg', select: false, id: 'art_gallery' },
     { name: 'Restaurants', img: 'assets/categories/restaurants.jpg', select: false, id: 'restaurant' },
     { name: 'Night Clubs', img: 'assets/categories/night-clubs.jpg', select: false, id: 'night_club' },
     { name: 'Bars', img: 'assets/categories/bars.jpg', select: false, id: 'bar' },
@@ -33,6 +38,7 @@ export class NewTripComponent implements OnInit {
 
   category$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   location$$: BehaviorSubject<Location> = new BehaviorSubject<Location>({ lng: 16.590935, lat: 49.222653 });
+  radius$$: BehaviorSubject<number> = new BehaviorSubject<number>(1000);
 
   searchResult$: Observable<TripPlace[]>;
 
@@ -40,7 +46,6 @@ export class NewTripComponent implements OnInit {
     {name: "Get drunk", duration: 3600},
     {name: "Get high", duration: 7200},
     {name: "Get smashed", duration: 10}
-
   ];
 
   constructor(public api: ApiClientService, public db: AngularFirestore) { }
@@ -55,9 +60,10 @@ export class NewTripComponent implements OnInit {
     this.searchResult$ = combineLatest(
       this.category$$.asObservable(),
       this.location$$.asObservable(),
+      this.radius$$.asObservable(),
     ).switchMap((data) => {
       return this.api
-        .gimmePlaces(1000, data[0], data[1].lng, data[1].lat, '', '', '')
+        .gimmePlaces(data[2], data[0], data[1].lng, data[1].lat, '', '', '')
         .map(d => d.places);
     })
   }
@@ -78,6 +84,17 @@ export class NewTripComponent implements OnInit {
         { timeout: 1500 }
       );
     })
+  }
+
+  setRadius(ev) {
+    this.radius$$.next(ev);
+  }
+
+  addToTimeline(ev) {
+    this.timeline.push({
+      name: ev.name,
+      duration: 7200
+    });
   }
 
   selectCategory(category) {
