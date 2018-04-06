@@ -58,4 +58,8 @@
     </mat-accordion>
   </div>
 
+  <div *ngFor="let p of searchResult$ | async">
+    {{p | json}}
+  </div>
+
 </div>
