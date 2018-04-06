@@ -9,6 +9,7 @@ import (
 
 	"github.com/gelidus/web-krokomotiva/trip"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/rs/cors"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
@@ -71,8 +72,9 @@ func main() {
 			log.Fatalf("gw: failed to register: %v", err)
 		}
 
+		handler := cors.Default().Handler(mux)
 		log.Infoln("Starting gateway server on", viper.GetString("server.binds.gw"))
-		log.Fatalf("gw: failed to server: %v", http.ListenAndServe(viper.GetString("server.binds.gw"), mux))
+		log.Fatalf("gw: failed to server: %v", http.ListenAndServe(viper.GetString("server.binds.gw"), handler))
 	}()
 
 	wg.Wait()

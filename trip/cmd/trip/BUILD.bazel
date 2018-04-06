@@ -10,6 +10,7 @@ go_library(
     deps = [
         "//trip:go_default_library",
         "//vendor/github.com/grpc-ecosystem/grpc-gateway/runtime:go_default_library",
+        "//vendor/github.com/rs/cors:go_default_library",
         "//vendor/github.com/sirupsen/logrus:go_default_library",
         "//vendor/github.com/spf13/viper:go_default_library",
         "//vendor/google.golang.org/grpc:go_default_library",
