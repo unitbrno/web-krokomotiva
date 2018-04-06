@@ -11,11 +11,6 @@ import 'rxjs/add/operator/debounce';
 import { timer } from 'rxjs/observable/timer';
 
 
-interface Location {
-  lat: number;
-  lng: number;
-}
-
 @Component({
   selector: 'app-new-trip',
   templateUrl: './new-trip.component.html',
@@ -32,12 +27,12 @@ export class NewTripComponent implements OnInit {
     { name: 'Bars', img: 'assets/categories/bars.jpg', select: false, id: 'bar' },
     { name: 'Parks', img: 'assets/categories/parks.jpg', select: false, id: 'park' },
     { name: 'Coffee Shops', img: 'assets/categories/coffee-shops.jpg', select: false, id: 'cafe' }
-  ]
+  ];
 
   selectedCategory: any;
 
   category$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  location$$: BehaviorSubject<Location> = new BehaviorSubject<Location>({ lng: 16.590935, lat: 49.222653 });
+  location$$: BehaviorSubject<GPSCoords> = new BehaviorSubject<GPSCoords>({ lng: 16.590935, lat: 49.222653 });
   radius$$: BehaviorSubject<number> = new BehaviorSubject<number>(1000);
 
   searchResult$: Observable<TripPlace[]>;
@@ -63,14 +58,15 @@ export class NewTripComponent implements OnInit {
       return this.api
         .gimmePlaces(data[2], data[0], data[1].lng, data[1].lat, '', '', '')
         .map(d => d.places);
-    })
+    });
+
   }
 
   wrapItem(item: Object, index: number): Object {
     return {...item, index: index}
   }
 
-  getLocation(): Promise<any> {
+  getGPSCoords(): Promise<any> {
     return new Promise((res, rej) => {
       navigator.geolocation.getCurrentPosition(
         (pos) => {

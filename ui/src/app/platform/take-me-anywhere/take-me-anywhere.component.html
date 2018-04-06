@@ -1,18 +1,23 @@
-<mat-card>
-  <mat-card-header>
+<div fxLayout="column" fxLayoutGap="16px">
+  <mat-toolbar color="primary">
     <mat-icon [routerLink]="['', 'app']">arrow_back</mat-icon>
-    <mat-card-title [routerLink]="['', 'app']">Take me anywhere</mat-card-title>
-    <mat-card-subtitle>Subtitle</mat-card-subtitle>
-  </mat-card-header>
-  <img matCardImage src="assets/take-me.jpg">
-  <mat-card-content>
-    Text content
-  </mat-card-content>
-  <mat-card-actions align="start">
-    <button mat-button>Action1</button>
+    <span> &nbsp; Take me Anywhere</span>
+  </mat-toolbar>
+</div>
 
-  </mat-card-actions>
-  <mat-card-footer>
-    Footer
-  </mat-card-footer>
-</mat-card>
+<div fxLayout="column">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Trip timeline</mat-card-title>
+    </mat-card-header>
+    <mat-list role="list">
+      <mat-list-item (onDrop)="onItemDrop($event, idx)" draggable droppable [dragData]="wrapItem(item, idx)" *ngFor="let item of timeline; let idx = index">
+        <div class="numberCircle">{{ idx + 1}}</div>
+        <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}}</div>
+      </mat-list-item>
+    </mat-list>
+    <mat-card-actions align="center">
+      <button mat-button mat-button-raised color="primary">Start the Trip!</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
