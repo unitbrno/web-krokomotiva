@@ -16,9 +16,23 @@
         </mat-list-item>
       </mat-list>
       <mat-card-actions align="center">
-          <button mat-button mat-button-raised color="primary" (click)="startTrip()">Start the Trip!</button>
-        </mat-card-actions>
+        <button mat-button mat-button-raised color="primary" (click)="startTrip()">Start the Trip!</button>
+      </mat-card-actions>
     </mat-card>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Show on the Map
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <agm-map [latitude]="(location$$ | async).lat" [longitude]="(location$$ | async).lng">
+          <agm-direction *ngIf="timeline.length > 0" [travelMode]="'DRIVING'" [origin]="location$$ | async" [destination]="destination"
+            [waypoints]="waypoints"></agm-direction>
+        </agm-map>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 
   <div fxLayout="column" fxLayoutGap="8px">
@@ -45,8 +59,7 @@
         </div>
 
         <mat-form-field>
-          <input [ngModel]="radius" (ngModelChange)="setRadius($event)"
-          matInput type="number" placeholder="Radius">
+          <input [ngModel]="radius" (ngModelChange)="setRadius($event)" matInput type="number" placeholder="Radius">
         </mat-form-field>
 
         <mat-form-field>
@@ -58,22 +71,13 @@
 
   <mat-card>
     <mat-list dense>
-        <h3 mat-subheader>Search Results</h3>
-        <mat-list-item *ngFor="let p of searchResult$ | async" (click)="addToTimeline(p)">
-          <img mat-list-icon [src]="p.iconURL" />
-          <h4 mat-line>{{p.name}} ({{p.rating}}/5★)</h4>
-          <p mat-line> {{p.address}} </p>
-          <mat-divider></mat-divider>
-        </mat-list-item>
-      </mat-list>
+      <h3 mat-subheader>Search Results</h3>
+      <mat-list-item *ngFor="let p of searchResult$ | async" (click)="addToTimeline(p)">
+        <img mat-list-icon [src]="p.iconURL" />
+        <h4 mat-line>{{p.name}} ({{p.rating}}/5★)</h4>
+        <p mat-line> {{p.address}} </p>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
   </mat-card>
-
-  <agm-map [latitude]="(location$$ | async).lat" [longitude]="(location$$ | async).lng">
-    <agm-direction *ngIf="timeline.length > 0"
-                   [travelMode]="'DRIVING'"
-                   [origin]="location$$ | async"
-                   [destination]="destination"
-                   [waypoints]="waypoints"></agm-direction>
-  </agm-map>
-
 </div>

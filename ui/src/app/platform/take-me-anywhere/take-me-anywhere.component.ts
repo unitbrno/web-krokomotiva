@@ -4,6 +4,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/debounce';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ApiClientService, TripPlaces, TripPlace } from '../../../../api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-take-me-anywhere',
@@ -19,7 +20,7 @@ export class TakeMeAnywhereComponent implements OnInit {
 
   searchResult$: Observable<TripPlace[]>;
 
-  constructor(public api: ApiClientService) { }
+  constructor(public api: ApiClientService, public router: Router) { }
 
   ngOnInit() {
     this.searchResult$ = combineLatest(
@@ -42,6 +43,11 @@ export class TakeMeAnywhereComponent implements OnInit {
 
       })
     })
+  }
+
+  startTrip() {
+    localStorage.setItem('trip', JSON.stringify(this.timeline));
+    this.router.navigate(['app']);
   }
 
   wrapItem(item: Object, index: number): Object {

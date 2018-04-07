@@ -15,13 +15,31 @@
     </mat-menu>
   </mat-toolbar>
 
-  <mat-card>
+  <mat-card *ngIf="timeline.length == 0">
+    <mat-card-header>
+      <mat-card-title>Recent trips</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-      <p>No recent trips</p>
+      <p>You don't have recent trips. Plan new trip to see it here!</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="timeline.length > 0">
+    <mat-card-header>
+      <mat-card-title>Active Trip</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-list role="list">
+            <mat-list-item *ngFor="let item of timeline; let idx = index">
+              <div class="numberCircle">{{ idx + 1}}</div>
+              <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}} - MHD: {{ item.transitToNext | amDuration:'seconds'}}</div>
+            </mat-list-item>
+          </mat-list>
     </mat-card-content>
 
-    <mat-card-actions align="start">
-      <button mat-button>Action1</button>
+    <mat-card-actions align="center">
+      <button color="primary" mat-button-raised mat-button>Next Place</button>
     </mat-card-actions>
   </mat-card>
 
