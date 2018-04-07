@@ -38,6 +38,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import ClientConfig = gapi.auth2.ClientConfig;
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
+import { MultiCityComponent } from './platform/multi-city/multi-city.component';
 
 let gapiClientConfig: ClientConfig = {
   client_id: "130236556639-otlovsrbfq8juamhjsh9d1ji9s5l71ml.apps.googleusercontent.com",
@@ -53,7 +54,8 @@ let gapiClientConfig: ClientConfig = {
     PlatformComponent,
     BoardComponent,
     NewTripComponent,
-    TakeMeAnywhereComponent
+    TakeMeAnywhereComponent,
+    MultiCityComponent
   ],
   imports: [
     BrowserModule,
