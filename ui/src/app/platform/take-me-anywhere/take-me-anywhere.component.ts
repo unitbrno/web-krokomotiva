@@ -16,7 +16,7 @@ export class TakeMeAnywhereComponent implements OnInit {
   timeline = [];
 
 
-  location$$: BehaviorSubject<GPSCoords> = new BehaviorSubject<GPSCoords>({ lng: 16.590935, lat: 49.222653 });
+  location$$: BehaviorSubject<GPSCoords> = new BehaviorSubject<GPSCoords>({ lng: 16.596908, lat: 49.226854 });
   radius$$: BehaviorSubject<number> = new BehaviorSubject<number>(1000);
 
   searchResult$: Observable<TripPlace[]>;

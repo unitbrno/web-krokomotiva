@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 interface Trip {
   uid: string;
@@ -23,6 +24,10 @@ export class BoardComponent implements OnInit {
   timeline = [];
   lineIndex = 0;
 
+  waypoints = [];
+  destination: any;
+  location$$: BehaviorSubject<GPSCoords> = new BehaviorSubject<GPSCoords>({ lng: 16.596908, lat: 49.226854 });
+
   constructor(public afAuth: AngularFireAuth, public router: Router, public db: AngularFirestore) { }
 
   ngOnInit() {
@@ -34,6 +39,7 @@ export class BoardComponent implements OnInit {
 
     if (localStorage.getItem('trip')) {
       this.timeline = JSON.parse(localStorage.getItem('trip'));
+      this.setWaypoints();
     }
   }
 
@@ -47,4 +53,20 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  setWaypoints() {
+    if (!this.timeline) {
+      return;
+    }
+    this.waypoints = this.timeline.slice(0, this.timeline.length - 1)
+      .map(item => {
+        return {
+          stopover: true,
+          location: {
+            placeId: item.placeID
+          }
+        };
+      });
+    this.destination = {
+      placeId: this.timeline[this.timeline.length - 1].placeID
+    };
 }

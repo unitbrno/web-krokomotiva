@@ -23,6 +23,7 @@
       <p>You don't have recent trips. Plan new trip to see it here!</p>
     </mat-card-content>
   </mat-card>
+  <div fxLayout="column">
 
   <mat-card *ngIf="timeline.length > 0">
     <mat-card-header>
@@ -33,7 +34,7 @@
         <mat-list role="list">
             <mat-list-item *ngFor="let item of timeline; let idx = index" [ngClass]="{'now': idx == lineIndex}">
               <div class="numberCircle">{{ idx + 1}}</div>
-              <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}} - MHD: {{ item.transitToNext | amDuration:'seconds'}}</div>
+              <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}}</div>
             </mat-list-item>
           </mat-list>
     </mat-card-content>
@@ -42,6 +43,20 @@
       <button color="primary" mat-button-raised mat-button (click)="next()">Next Place</button>
     </mat-card-actions>
   </mat-card>
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Show on the Map
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <agm-map [latitude]="(location$$ | async).lat" [longitude]="(location$$ | async).lng">
+        <agm-direction *ngIf="timeline.length > 0" [travelMode]="'DRIVING'" [origin]="location$$ | async" [destination]="destination"
+                       [waypoints]="waypoints"></agm-direction>
+      </agm-map>
+    </mat-expansion-panel>
+  </mat-accordion>
 
   <mat-card>
     <img mat-card-image src="assets/new-trip.jpg">
