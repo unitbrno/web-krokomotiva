@@ -69,4 +69,5 @@ export class BoardComponent implements OnInit {
     this.destination = {
       placeId: this.timeline[this.timeline.length - 1].placeID
     };
+  }
 }
