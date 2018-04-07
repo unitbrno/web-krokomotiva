@@ -36,6 +36,15 @@ import { AuthGuard } from './auth.guard';
 import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
+import ClientConfig = gapi.auth2.ClientConfig;
+import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
+
+let gapiClientConfig: ClientConfig = {
+  client_id: "130236556639-otlovsrbfq8juamhjsh9d1ji9s5l71ml.apps.googleusercontent.com",
+  scope: [
+    "https://www.googleapis.com/auth/calendar"
+  ].join(" ")
+};
 
 @NgModule({
   declarations: [
@@ -62,6 +71,11 @@ import { AgmDirectionModule } from 'agm-direction';
 
     MomentModule,
     NgDragDropModule.forRoot(),
+
+    GoogleApiModule.forRoot({
+      provide: NG_GAPI_CONFIG,
+      useValue: gapiClientConfig
+    }),
 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCC1XATKvXz1ovFsekTraFuRi3Vinh_f18',

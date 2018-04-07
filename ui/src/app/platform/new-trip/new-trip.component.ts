@@ -10,6 +10,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/debounce';
 import { timer } from 'rxjs/observable/timer';
 import { TripDirections } from '../../../../api/models/trip-directions.model';
+import { GoogleApiService, GoogleAuthService } from 'ng-gapi';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class NewTripComponent implements OnInit {
   waypoints = [];
   destination: any;
 
-  constructor(public api: ApiClientService, public db: AngularFirestore) { }
+  constructor(public api: ApiClientService, public db: AngularFirestore, gapi: GoogleApiService, private googleAuth: GoogleAuthService) { }
   onItemDrop(e: any, id: number) {
     // Get the dropped data here
     let old = this.timeline[id];

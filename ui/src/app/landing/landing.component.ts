@@ -9,8 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
+  provider = new firebase.auth.GoogleAuthProvider();
 
-  constructor(public afAuth: AngularFireAuth, public router: Router) { }
+  constructor(public afAuth: AngularFireAuth, public router: Router) {
+    this.provider.addScope("https://www.googleapis.com/auth/calendar");
+  }
 
   ngOnInit() {
   }
@@ -18,8 +21,9 @@ export class LandingComponent implements OnInit {
   public login() {
     this.afAuth
       .auth
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(() => {
+      .signInWithPopup(this.provider)
+      .then((result) => {
+        sessionStorage.setItem("GTOKEN", result.credential.accessToken);
         this.router.navigate(['app'])
       })
   }
