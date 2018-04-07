@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package trip;
+option go_package = "github.com/gelidus/web-krokomotiva/trip";
+
+import "google/protobuf/empty.proto";
+import "core/protobuf/proto.proto";
+import "google/api/annotations.proto";
+
+service TripService {
+    rpc GetVersion (google.protobuf.Empty) returns (Version) {
+        option (google.api.http) = {
+            get: "/version"
+        };
+    };
+    rpc GimmePlaces (PlaceRequest) returns (Places) {
+        option (google.api.http) = {
+            get: "/places"
+        };
+    };
+    rpc GetDirections (DirectionRequest) returns (Directions) {
+        option (google.api.http) = {
+            post: "/directions"
+            body: "*"
+        };
+    }
+    rpc Check(core.HealthCheckRequest) returns (core.HealthCheckResponse);
+}
+
+message Version {
+    string name = 1;
+}
+
+message PlaceRequest {
+    uint32 radius = 1;
+    string placeType = 2;
+    double lng = 3;
+    double lat = 4;
+    string priceMin = 5;
+    string priceMax = 6;
+    string token = 7;
+}
+
+message Places {
+    repeated Place places = 1;
+    string nextToken = 2;
+}
+
+message Place {
+    string name = 1;
+    int32 priceLevel = 2;
+    float rating = 3;
+    string placeID = 4;
+    string iconURL = 5;
+    string address = 6;
+    double lat = 7;
+    double lng = 8;
+}
+
+message DirectionRequest {
+    string mode = 1;
+    int64 departureTime = 2;
+    repeated string locations = 3;
+}
+
+message Directions {
+    repeated Direction directions = 1;
+}
+
+message Direction {
+    int64 duration = 1;
+}

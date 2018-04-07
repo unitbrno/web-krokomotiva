@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: trip
+  labels:
+    app: trip
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trip
+  template:
+    metadata:
+      labels:
+        app: trip
+        type: api-service
+    spec:
+      containers:
+      - name: trip
+        image: gcr.io/peto-199916/web-krokomotiva-trip:latest
+        ports: 
+        - name: grpc
+          containerPort: 50051
+          protocol: TCP 
+        - name: http-gateway
+          containerPort: 50080
+          protocol: TCP
+        env:
+        - name: GOOGLE_MAPS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: maps-api-key
+              key: maps-api-key
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: trip
+spec:
+  selector:
+    app: trip
+  ports:
+    - name: grpc
+      port: 50051
+      protocol: TCP 
+    - name: http-gateway
+      port: 50080
+      protocol: TCP
+  type: NodePort

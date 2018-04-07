@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tripipinator
+  annotations:
+    gce.ingress.kubernetes.io/enable-cors: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: trip
+          servicePort: 50080

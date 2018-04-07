@@ -1,0 +1,26 @@
+.avatar {
+  background-image: url("https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png");
+  background-size: cover;
+}
+
+.numberCircle {
+  background: #3f51b5;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 10px;
+  text-align: center;
+  width: 1.6em;
+}
+
+.now {
+  background-color: #C0C0C0;
+}
+
+agm-map {
+  height: 400px;
+}

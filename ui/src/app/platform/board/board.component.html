@@ -1,0 +1,81 @@
+<div class="container" fxLayout="column" fxLayoutGap="8px">
+  <mat-toolbar color="primary">
+    <span>Tripipinátor 3000</span>
+    <span fxFlex></span>
+    <div mat-card-avatar class="avatar" [matMenuTriggerFor]="menu"></div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>
+        <mat-icon>account_circle</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-card *ngIf="timeline.length == 0">
+    <mat-card-header>
+      <mat-card-title>Recent trips</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>You don't have recent trips. Plan new trip to see it here!</p>
+    </mat-card-content>
+  </mat-card>
+  <div fxLayout="column">
+
+  <mat-card *ngIf="timeline.length > 0">
+    <mat-card-header>
+      <mat-card-title>Active Trip</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-list role="list">
+            <mat-list-item *ngFor="let item of timeline; let idx = index" [ngClass]="{'now': idx == lineIndex}">
+              <div class="numberCircle">{{ idx + 1}}</div>
+              <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}}</div>
+            </mat-list-item>
+          </mat-list>
+    </mat-card-content>
+
+    <mat-card-actions align="center">
+      <button color="primary" mat-button-raised mat-button (click)="next()">Next Place</button>
+    </mat-card-actions>
+  </mat-card>
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Show on the Map
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <agm-map [latitude]="(location$$ | async).lat" [longitude]="(location$$ | async).lng">
+        <agm-direction *ngIf="timeline.length > 0" [travelMode]="'DRIVING'" [origin]="location$$ | async" [destination]="destination"
+                       [waypoints]="waypoints"></agm-direction>
+      </agm-map>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-card>
+    <img mat-card-image src="assets/new-trip.jpg">
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [routerLink]="['', 'app', 'new-trip']">Plan a New Trip</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card fxFlex fxFill>
+    <img mat-card-image src="assets/take-me.jpg">
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [routerLink]="['', 'app', 'take-me']">Take me anywhere</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card>
+    <img mat-card-image src="assets/airplane.jpg">
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [routerLink]="['', 'app', 'multi-city']">Multi-city party</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

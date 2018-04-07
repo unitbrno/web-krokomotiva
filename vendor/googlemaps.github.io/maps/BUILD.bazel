@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "client.go",
+        "directions.go",
+        "distancematrix.go",
+        "doc.go",
+        "elevation.go",
+        "encoding.go",
+        "geocoding.go",
+        "geolocation.go",
+        "latlng.go",
+        "places.go",
+        "polyline.go",
+        "roads.go",
+        "staticmap.go",
+        "timezone.go",
+        "transport.go",
+        "types.go",
+    ],
+    importpath = "googlemaps.github.io/maps",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/golang.org/x/net/context:go_default_library",
+        "//vendor/golang.org/x/net/context/ctxhttp:go_default_library",
+        "//vendor/golang.org/x/time/rate:go_default_library",
+        "//vendor/googlemaps.github.io/maps/internal:go_default_library",
+    ],
+)

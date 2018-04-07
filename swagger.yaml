@@ -1,0 +1,169 @@
+---
+  swagger: "2.0"
+  info: 
+    version: "0.0.1"
+    title: "Swagger"
+    description: "All services\n"
+  host: "host"
+  basePath: "/"
+  schemes: 
+    - "http"
+    - "https"
+  consumes: 
+    - "application/json"
+  produces: 
+    - "application/json"
+  tags: []
+  definitions: 
+    HealthCheckResponseServingStatus: 
+      type: "string"
+      enum: 
+        - "UNKNOWN"
+        - "SERVING"
+        - "NOT_SERVING"
+      default: "UNKNOWN"
+    coreHealthCheckResponse: 
+      type: "object"
+      properties: 
+        status: 
+          $ref: "#/definitions/HealthCheckResponseServingStatus"
+    tripDirection: 
+      type: "object"
+      properties: 
+        duration: 
+          type: "string"
+          format: "int64"
+    tripDirectionRequest: 
+      type: "object"
+      properties: 
+        mode: 
+          type: "string"
+        departureTime: 
+          type: "string"
+          format: "int64"
+        locations: 
+          type: "array"
+          items: 
+            type: "string"
+    tripDirections: 
+      type: "object"
+      properties: 
+        directions: 
+          type: "array"
+          items: 
+            $ref: "#/definitions/tripDirection"
+    tripPlace: 
+      type: "object"
+      properties: 
+        name: 
+          type: "string"
+        priceLevel: 
+          type: "integer"
+          format: "int32"
+        rating: 
+          type: "number"
+          format: "float"
+        placeID: 
+          type: "string"
+        iconURL: 
+          type: "string"
+        address: 
+          type: "string"
+        lat: 
+          type: "number"
+          format: "double"
+        lng: 
+          type: "number"
+          format: "double"
+    tripPlaces: 
+      type: "object"
+      properties: 
+        places: 
+          type: "array"
+          items: 
+            $ref: "#/definitions/tripPlace"
+        nextToken: 
+          type: "string"
+    tripVersion: 
+      type: "object"
+      properties: 
+        name: 
+          type: "string"
+  paths: 
+    /directions: 
+      post: 
+        operationId: "GetDirections"
+        responses: 
+          200: 
+            description: ""
+            schema: 
+              $ref: "#/definitions/tripDirections"
+        parameters: 
+          - 
+            name: "body"
+            in: "body"
+            required: true
+            schema: 
+              $ref: "#/definitions/tripDirectionRequest"
+        tags: 
+          - "TripService"
+    /places: 
+      get: 
+        operationId: "GimmePlaces"
+        responses: 
+          200: 
+            description: ""
+            schema: 
+              $ref: "#/definitions/tripPlaces"
+        parameters: 
+          - 
+            name: "radius"
+            in: "query"
+            required: false
+            type: "integer"
+            format: "int64"
+          - 
+            name: "placeType"
+            in: "query"
+            required: false
+            type: "string"
+          - 
+            name: "lng"
+            in: "query"
+            required: false
+            type: "number"
+            format: "double"
+          - 
+            name: "lat"
+            in: "query"
+            required: false
+            type: "number"
+            format: "double"
+          - 
+            name: "priceMin"
+            in: "query"
+            required: false
+            type: "string"
+          - 
+            name: "priceMax"
+            in: "query"
+            required: false
+            type: "string"
+          - 
+            name: "token"
+            in: "query"
+            required: false
+            type: "string"
+        tags: 
+          - "TripService"
+    /version: 
+      get: 
+        operationId: "GetVersion"
+        responses: 
+          200: 
+            description: ""
+            schema: 
+              $ref: "#/definitions/tripVersion"
+        tags: 
+          - "TripService"
+

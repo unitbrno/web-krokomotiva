@@ -1,0 +1,3 @@
+build --experimental_remote_spawn_cache
+build --remote_http_cache=https://storage.googleapis.com/bazel-remote
+build --google_default_credentials=true

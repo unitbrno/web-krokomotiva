@@ -1,0 +1,86 @@
+<div fxLayout="column">
+  <mat-toolbar color="primary">
+    <mat-icon [routerLink]="['', 'app']">arrow_back</mat-icon>
+    <span> &nbsp; Creating a New Trip</span>
+  </mat-toolbar>
+
+  <div fxLayout="column">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Trip timeline</mat-card-title>
+      </mat-card-header>
+      <mat-list role="list">
+        <mat-list-item (onDrop)="onItemDrop($event, idx)" draggable droppable [dragData]="wrapItem(item, idx)" *ngFor="let item of timeline; let idx = index">
+          <div class="numberCircle">{{ idx + 1}}</div>
+          <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}} - MHD: {{ item.transitToNext | amDuration:'seconds'}}</div>
+        </mat-list-item>
+        <mat-list-item droppable (onDrop)="removeTimelineItem($event)" *ngIf="timeline.length !== 0">
+          <mat-icon class="delete-icon">delete</mat-icon>Drop to remove
+        </mat-list-item>
+      </mat-list>
+      <mat-card-actions align="center">
+        <button mat-button mat-button-raised color="primary" (click)="startTrip()">Start the Trip!</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-accordion class="map-card">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Show on the Map
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <agm-map [latitude]="(location$$ | async).lat" [longitude]="(location$$ | async).lng">
+          <agm-direction *ngIf="timeline.length > 0" [travelMode]="'DRIVING'" [origin]="location$$ | async" [destination]="destination"
+            [waypoints]="waypoints"></agm-direction>
+        </agm-map>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutGap="8px" class="categories">
+      <mat-card *ngFor="let c of categories" (click)="selectCategory(c)" fxFlex="grow">
+        <img class="category" [class.unselected]="!c.select" mat-card-image [(src)]="c.img">
+        <mat-card-title>
+          {{c.name}}
+        </mat-card-title>
+      </mat-card>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Advanced filtering
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div>
+          Price level
+          <mat-slider min="1" max="5" step="1" value="3" thumbLabel tickInterval="1"></mat-slider>
+        </div>
+
+        <mat-form-field>
+          <input [ngModel]="radius" (ngModelChange)="setRadius($event)" matInput type="number" placeholder="Radius">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Transport">
+        </mat-form-field>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <mat-card>
+    <mat-list dense>
+      <h3 mat-subheader>Search Results</h3>
+      <mat-list-item *ngFor="let p of searchResult$ | async" (click)="addToTimeline(p)">
+        <img mat-list-icon [src]="p.iconURL" />
+        <h4 mat-line>{{p.name}} ({{p.rating}}/5★)</h4>
+        <p mat-line> {{p.address}} </p>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

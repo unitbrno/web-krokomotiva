@@ -1,0 +1,11 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "signer.go",
+        "types.go",
+    ],
+    importpath = "googlemaps.github.io/maps/internal",
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,27 @@
+/** WARNING: Do NOT import this file in any component style */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body {
+    min-height: 100%;
+    background-color: #fafafa;
+}
+
+body {
+    line-height: 1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+}
+
+input {  /* stylelint-disable-line selector-no-type */
+    border: none;
+    background: none;
+}
+
+md-icon {
+    font-family: 'Material Icons' !important;
+}
