@@ -18,6 +18,12 @@ service TripService {
             get: "/places"
         };
     };
+    rpc GetDirections (DirectionRequest) returns (Directions) {
+        option (google.api.http) = {
+            post: "/directions"
+            body: "*"
+        };
+    }
     rpc Check(core.HealthCheckRequest) returns (core.HealthCheckResponse);
 }
 
@@ -49,4 +55,18 @@ message Place {
     string address = 6;
     double lat = 7;
     double lng = 8;
+}
+
+message DirectionRequest {
+    string mode = 1;
+    int64 departureTime = 2;
+    repeated string locations = 3;
+}
+
+message Directions {
+    repeated Direction directions = 1;
+}
+
+message Direction {
+    int64 duration = 1;
 }

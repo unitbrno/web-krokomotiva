@@ -1,10 +1,13 @@
 package trip
 
 import (
+	"errors"
 	"github.com/gelidus/web-krokomotiva/core"
 	google_protobuf "github.com/golang/protobuf/ptypes/empty"
 	"golang.org/x/net/context"
 	"googlemaps.github.io/maps"
+	"strconv"
+	"time"
 )
 
 // Trip represents an implementation of the service interface
@@ -69,4 +72,37 @@ func (s *Service) GimmePlaces(ctx context.Context, in *PlaceRequest) (*Places, e
 	}
 
 	return places, nil
+}
+
+func (s *Service) GetDirections(ctx context.Context, req *DirectionRequest) (*Directions, error) {
+	if len(req.Locations) < 1 {
+		return nil, errors.New("not enough locations")
+	}
+	directions := make([]*Direction, 0, len(req.Locations)-1)
+	departureTime := time.Now().Unix()
+	if req.DepartureTime != 0 {
+		departureTime = req.DepartureTime
+	}
+	for i := range req.Locations {
+		if i == len(req.Locations)-1 {
+			break
+		}
+		route, _, err := s.MapsClient.Directions(ctx, &maps.DirectionsRequest{
+			Origin:      "place_id:" + req.Locations[i],
+			Destination: "place_id:" + req.Locations[i+1],
+			Mode:        "transit",
+			DepartureTime: strconv.FormatInt(departureTime, 10),
+		})
+		if err != nil {
+			return nil, err
+		}
+		directions = append(directions, &Direction{
+			Duration: int64(route[0].Legs[0].Duration),
+		})
+		departureTime += int64(route[0].Legs[0].Duration)
+	}
+
+	return &Directions{
+		Directions: directions,
+	}, nil
 }

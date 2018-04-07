@@ -27,6 +27,31 @@
       properties: 
         status: 
           $ref: "#/definitions/HealthCheckResponseServingStatus"
+    tripDirection: 
+      type: "object"
+      properties: 
+        duration: 
+          type: "string"
+          format: "int64"
+    tripDirectionRequest: 
+      type: "object"
+      properties: 
+        mode: 
+          type: "string"
+        departureTime: 
+          type: "string"
+          format: "int64"
+        locations: 
+          type: "array"
+          items: 
+            type: "string"
+    tripDirections: 
+      type: "object"
+      properties: 
+        directions: 
+          type: "array"
+          items: 
+            $ref: "#/definitions/tripDirection"
     tripPlace: 
       type: "object"
       properties: 
@@ -65,6 +90,23 @@
         name: 
           type: "string"
   paths: 
+    /directions: 
+      post: 
+        operationId: "GetDirections"
+        responses: 
+          200: 
+            description: ""
+            schema: 
+              $ref: "#/definitions/tripDirections"
+        parameters: 
+          - 
+            name: "body"
+            in: "body"
+            required: true
+            schema: 
+              $ref: "#/definitions/tripDirectionRequest"
+        tags: 
+          - "TripService"
     /places: 
       get: 
         operationId: "GimmePlaces"

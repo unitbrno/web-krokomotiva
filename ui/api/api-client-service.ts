@@ -7,6 +7,9 @@ import { Observable } from 'rxjs/Observable';
 import {
   HealthCheckResponseServingStatus,
   CoreHealthCheckResponse,
+  TripDirection,
+  TripDirectionRequest,
+  TripDirections,
   TripPlace,
   TripPlaces,
   TripVersion,
@@ -39,6 +42,13 @@ export class ApiClientService {
       headers: options && options.headers ? options.headers : new HttpHeaders(),
       params: options && options.params ? options.params : new HttpParams()
     };
+  }
+
+  getDirections(body: TripDirectionRequest, options?: HttpOptions): Observable<TripDirections> {
+    const path = `/directions`;
+    options = {...this.options, ...options};
+
+    return this.sendRequest<TripDirections>('POST', path, options, JSON.stringify(body));
   }
 
   gimmePlaces(radius: number, placeType: string, lng: number, lat: number, priceMin: string, priceMax: string, token: string, options?: HttpOptions): Observable<TripPlaces> {

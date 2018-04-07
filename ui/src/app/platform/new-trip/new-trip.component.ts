@@ -89,6 +89,7 @@ export class NewTripComponent implements OnInit {
   }
 
   addToTimeline(ev) {
+    console.log(this.timeline)
     this.timeline.push({
       name: ev.name,
       lat: ev.lat,
