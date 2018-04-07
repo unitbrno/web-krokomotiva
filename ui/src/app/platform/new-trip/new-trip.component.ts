@@ -78,9 +78,11 @@ export class NewTripComponent implements OnInit {
       this.api.getDirections({
         locations: locations,
         departureTime: null, mode: 'transit'})
-        .subscribe((data: TripDirections) => data.directions.forEach((item, i) => {
-          this.timeline[i].transitToNext = item.duration
-        }))
+        .subscribe((data: TripDirections) => {
+          data.directions.forEach((item, i) => {
+            this.timeline[i].transitToNext = +item.duration;
+          });
+        })
     })
 
   }
@@ -103,13 +105,13 @@ export class NewTripComponent implements OnInit {
   }
 
   addToTimeline(ev) {
-    console.log(this.timeline)
     this.timeline.push({
       name: ev.name,
       lat: ev.lat,
       lng: ev.lng,
       placeID: ev.placeID,
-      duration: 7200
+      duration: 7200,
+      transitToNext: 0,
     });
    this.setWaypoints();
    this.recalculateTransit();

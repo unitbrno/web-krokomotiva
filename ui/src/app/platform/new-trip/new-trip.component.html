@@ -13,7 +13,7 @@
       <mat-list role="list">
         <mat-list-item (onDrop)="onItemDrop($event, idx)" draggable droppable [dragData]="wrapItem(item, idx)" *ngFor="let item of timeline; let idx = index">
           <div class="numberCircle">{{ idx + 1}}</div>
-          <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}} - {{ item?.transitToNext | amDuration:'seconds' }}</div>
+          <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}} - MHD: {{ item.transitToNext | amDuration:'seconds'}}</div>
         </mat-list-item>
       </mat-list>
       <mat-card-actions align="center">
