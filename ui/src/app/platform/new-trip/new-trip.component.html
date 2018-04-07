@@ -16,7 +16,7 @@
         </mat-list-item>
       </mat-list>
       <mat-card-actions align="center">
-          <button mat-button mat-button-raised color="primary">Start the Trip!</button>
+          <button mat-button mat-button-raised color="primary" (click)="startTrip()">Start the Trip!</button>
         </mat-card-actions>
     </mat-card>
   </div>
@@ -57,7 +57,7 @@
   </div>
 
   <mat-card>
-    <mat-list>
+    <mat-list dense>
         <h3 mat-subheader>Search Results</h3>
         <mat-list-item *ngFor="let p of searchResult$ | async" (click)="addToTimeline(p)">
           <img mat-list-icon [src]="p.iconURL" />
