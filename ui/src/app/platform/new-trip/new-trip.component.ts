@@ -38,8 +38,11 @@ export class NewTripComponent implements OnInit {
   searchResult$: Observable<TripPlace[]>;
 
   timeline = [
-    {name: 'Start of your journey', duration: 600},
+   // {name: 'Start of your journey', duration: 600, lat: 49.222653, lng: 16.590935},
   ];
+
+  waypoints = [];
+  destination: any;
 
   constructor(public api: ApiClientService, public db: AngularFirestore) { }
   onItemDrop(e: any, id: number) {
@@ -47,6 +50,7 @@ export class NewTripComponent implements OnInit {
     let old = this.timeline[id];
     this.timeline[id] = e.dragData;
     this.timeline[e.dragData.index] = old;
+    this.setWaypoints();
   }
 
   ngOnInit() {
@@ -87,8 +91,30 @@ export class NewTripComponent implements OnInit {
   addToTimeline(ev) {
     this.timeline.push({
       name: ev.name,
+      lat: ev.lat,
+      lng: ev.lng,
+      placeID: ev.placeID,
       duration: 7200
     });
+   this.setWaypoints()
+  }
+
+  setWaypoints() {
+    if (!this.timeline) {
+      return
+    }
+    this.waypoints = this.timeline.slice(0, this.timeline.length - 1)
+      .map(item => {
+      return {
+        stopover: true,
+        location: {
+          placeId: item.placeID
+        }
+      }
+    });
+    this.destination = {
+      placeId: this.timeline[this.timeline.length - 1].placeID
+    }
   }
 
   selectCategory(category) {

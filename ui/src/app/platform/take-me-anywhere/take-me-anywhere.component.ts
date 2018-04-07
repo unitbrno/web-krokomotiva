@@ -32,7 +32,6 @@ export class TakeMeAnywhereComponent implements OnInit {
     });
 
     this.searchResult$.subscribe(data => {
-      console.log(data);
       this.timeline = data.sort(() => 0.5 - Math.random())
         .slice(0,4)
         .map(item => {

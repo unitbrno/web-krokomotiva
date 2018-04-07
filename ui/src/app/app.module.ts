@@ -34,6 +34,8 @@ import { MomentModule } from 'angular2-moment';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { AuthGuard } from './auth.guard';
 import { FormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,11 @@ import { FormsModule } from '@angular/forms';
 
     MomentModule,
     NgDragDropModule.forRoot(),
+
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCC1XATKvXz1ovFsekTraFuRi3Vinh_f18',
+    }),
+    AgmDirectionModule,
 
     MatButtonModule, MatCheckboxModule, MatCardModule, MatAutocompleteModule,
     MatMenuModule, MatInputModule, MatToolbarModule, MatListModule,

@@ -69,4 +69,12 @@
       </mat-list>
   </mat-card>
 
+  <agm-map [latitude]="(location$$ | async).lat" [longitude]="(location$$ | async).lng">
+    <agm-direction *ngIf="timeline.length > 0"
+                   [travelMode]="'DRIVING'"
+                   [origin]="location$$ | async"
+                   [destination]="destination"
+                   [waypoints]="waypoints"></agm-direction>
+  </agm-map>
+
 </div>
