@@ -47,7 +47,7 @@ export class NewTripComponent implements OnInit {
   waypoints = [];
   destination: any;
 
-  constructor(public api: ApiClientService, public db: AngularFirestore, gapi: GoogleApiService, private googleAuth: GoogleAuthService, public router: Router) { }
+  constructor(public api: ApiClientService, public db: AngularFirestore, public router: Router) { }
   onItemDrop(e: any, id: number) {
     // Get the dropped data here
     let old = this.timeline[id];

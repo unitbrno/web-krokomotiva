@@ -4,6 +4,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/debounce';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ApiClientService, TripPlaces, TripPlace } from '../../../../api';
+import { TripDirections } from '../../../../api/models/trip-directions.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,6 +22,9 @@ export class TakeMeAnywhereComponent implements OnInit {
   searchResult$: Observable<TripPlace[]>;
 
   constructor(public api: ApiClientService, public router: Router) { }
+  waypoints = [];
+  destination: any;
+
 
   ngOnInit() {
     this.searchResult$ = combineLatest(
@@ -38,10 +42,14 @@ export class TakeMeAnywhereComponent implements OnInit {
         .map(item => {
         return {
           name: item.name,
+          lat: item.lat,
+          lng: item.lng,
+          placeID: item.placeID,
           duration: 7200,
-        }
+        };
+      });
+      this.setWaypoints();
 
-      })
     })
   }
 
@@ -52,6 +60,39 @@ export class TakeMeAnywhereComponent implements OnInit {
 
   wrapItem(item: Object, index: number): Object {
     return {...item, index: index}
+  }
+
+  recalculateTransit() {
+    this.location$$.subscribe(location => {
+      let locations = [location.lat + "," + location.lng];
+      locations = locations.concat(this.timeline.map(item => "place_id:" + item.placeID));
+      this.api.getDirections({
+        locations: locations,
+        departureTime: null, mode: 'transit'})
+        .subscribe((data: TripDirections) => {
+          data.directions.forEach((item, i) => {
+            this.timeline[i].transitToNext = +item.duration;
+          });
+        })
+    })
+  }
+
+  setWaypoints() {
+    if (!this.timeline) {
+      return
+    }
+    this.waypoints = this.timeline.slice(0, this.timeline.length - 1)
+      .map(item => {
+        return {
+          stopover: true,
+          location: {
+            placeId: item.placeID
+          }
+        }
+      });
+    this.destination = {
+      placeId: this.timeline[this.timeline.length - 1].placeID
+    }
   }
 
   onItemDrop(e: any, id: number) {
