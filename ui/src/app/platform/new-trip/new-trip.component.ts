@@ -77,7 +77,7 @@ export class NewTripComponent implements OnInit {
       locations = locations.concat(this.timeline.map(item => "place_id:" + item.placeID));
       this.api.getDirections({
         locations: locations,
-        departureTime: '', mode: 'transit'})
+        departureTime: null, mode: 'transit'})
         .subscribe((data: TripDirections) => data.directions.forEach((item, i) => {
           this.timeline[i].transitToNext = item.duration
         }))

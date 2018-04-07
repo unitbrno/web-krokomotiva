@@ -96,11 +96,12 @@ func (s *Service) GetDirections(ctx context.Context, req *DirectionRequest) (*Di
 		if err != nil {
 			return nil, err
 		}
+		durationSeconds := int64(route[0].Legs[0].Duration) / 1000000000
 		directions = append(directions, &Direction{
 			// ns to s
-			Duration: int64(route[0].Legs[0].Duration) / 1000000000,
+			Duration: durationSeconds,
 		})
-		departureTime += int64(route[0].Legs[0].Duration)
+		departureTime += durationSeconds
 	}
 
 	return &Directions{
