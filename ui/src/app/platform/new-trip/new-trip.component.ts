@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/debounce';
 import { timer } from 'rxjs/observable/timer';
+import { TripDirections } from '../../../../api/models/trip-directions.model';
 
 
 @Component({
@@ -70,6 +71,19 @@ export class NewTripComponent implements OnInit {
     return {...item, index: index}
   }
 
+  recalculateTransit() {
+    this.location$$.subscribe(location => {
+      let locations = [location.lat + "," + location.lng];
+      locations = locations.concat(this.timeline.map(item => "place_id:" + item.placeID));
+      this.api.getDirections({
+        locations: locations,
+        departureTime: '', mode: 'transit'})
+        .subscribe((data: TripDirections) => data.directions.forEach((item, i) => {
+          this.timeline[i].transitToNext = item.duration
+        }))
+    })
+
+  }
   getGPSCoords(): Promise<any> {
     return new Promise((res, rej) => {
       navigator.geolocation.getCurrentPosition(
@@ -97,7 +111,8 @@ export class NewTripComponent implements OnInit {
       placeID: ev.placeID,
       duration: 7200
     });
-   this.setWaypoints()
+   this.setWaypoints();
+   this.recalculateTransit();
   }
 
   setWaypoints() {

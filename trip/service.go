@@ -88,16 +88,17 @@ func (s *Service) GetDirections(ctx context.Context, req *DirectionRequest) (*Di
 			break
 		}
 		route, _, err := s.MapsClient.Directions(ctx, &maps.DirectionsRequest{
-			Origin:      "place_id:" + req.Locations[i],
-			Destination: "place_id:" + req.Locations[i+1],
-			Mode:        "transit",
+			Origin:      req.Locations[i],
+			Destination: req.Locations[i+1],
+			Mode:        maps.TravelModeTransit,
 			DepartureTime: strconv.FormatInt(departureTime, 10),
 		})
 		if err != nil {
 			return nil, err
 		}
 		directions = append(directions, &Direction{
-			Duration: int64(route[0].Legs[0].Duration),
+			// ns to s
+			Duration: int64(route[0].Legs[0].Duration) / 1000000000,
 		})
 		departureTime += int64(route[0].Legs[0].Duration)
 	}
