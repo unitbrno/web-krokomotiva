@@ -1,7 +1,7 @@
 .categories {
   overflow-x: scroll;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .category {
@@ -28,4 +28,12 @@
 }
 agm-map {
   height: 400px;
+}
+
+.delete-icon {
+  margin-right: 8px;
+}
+
+.map-card { 
+  margin-top: 8px;
 }

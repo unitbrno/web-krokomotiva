@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="16px">
+<div fxLayout="column">
   <mat-toolbar color="primary">
     <mat-icon [routerLink]="['', 'app']">arrow_back</mat-icon>
     <span> &nbsp; Creating a New Trip</span>
@@ -14,13 +14,16 @@
           <div class="numberCircle">{{ idx + 1}}</div>
           <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}} - MHD: {{ item.transitToNext | amDuration:'seconds'}}</div>
         </mat-list-item>
+        <mat-list-item droppable (onDrop)="removeTimelineItem($event)" *ngIf="timeline.length !== 0">
+          <mat-icon class="delete-icon">delete</mat-icon>Drop to remove
+        </mat-list-item>
       </mat-list>
       <mat-card-actions align="center">
         <button mat-button mat-button-raised color="primary" (click)="startTrip()">Start the Trip!</button>
       </mat-card-actions>
     </mat-card>
 
-    <mat-accordion>
+    <mat-accordion class="map-card">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -35,7 +38,7 @@
     </mat-accordion>
   </div>
 
-  <div fxLayout="column" fxLayoutGap="8px">
+  <div fxLayout="column">
     <div fxLayout="row" fxLayoutGap="8px" class="categories">
       <mat-card *ngFor="let c of categories" (click)="selectCategory(c)" fxFlex="grow">
         <img class="category" [class.unselected]="!c.select" mat-card-image [(src)]="c.img">

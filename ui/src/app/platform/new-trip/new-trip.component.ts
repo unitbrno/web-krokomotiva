@@ -41,18 +41,29 @@ export class NewTripComponent implements OnInit {
   searchResult$: Observable<TripPlace[]>;
 
   timeline = [
-   // {name: 'Start of your journey', duration: 600, lat: 49.222653, lng: 16.590935},
+    // { name: 'Remove', duration: 600, lat: 49.222653, lng: 16.590935 },
   ];
 
   waypoints = [];
   destination: any;
 
   constructor(public api: ApiClientService, public db: AngularFirestore, public router: Router) { }
+
   onItemDrop(e: any, id: number) {
     // Get the dropped data here
     let old = this.timeline[id];
     this.timeline[id] = e.dragData;
     this.timeline[e.dragData.index] = old;
+    this.setWaypoints();
+  }
+
+  removeTimelineItem(e: any) {
+    if (e.dragData.index > -1) {
+      this.timeline.splice(e.dragData.index, 1);
+    }
+
+    if (this.timeline.length === 0) return;
+
     this.setWaypoints();
   }
 
@@ -122,6 +133,7 @@ export class NewTripComponent implements OnInit {
     });
    this.setWaypoints();
    this.recalculateTransit();
+   window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
   }
 
   setWaypoints() {
