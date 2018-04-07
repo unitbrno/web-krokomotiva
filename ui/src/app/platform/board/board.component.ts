@@ -21,6 +21,7 @@ export class BoardComponent implements OnInit {
   currentTrip: AngularFirestoreDocument<Trip>;
 
   timeline = [];
+  lineIndex = 0;
 
   constructor(public afAuth: AngularFireAuth, public router: Router, public db: AngularFirestore) { }
 
@@ -31,9 +32,13 @@ export class BoardComponent implements OnInit {
 
     this.currentTrip.snapshotChanges().subscribe(console.log);
 
-    if (localStorage.getItem('trip').length != 0) {
+    if (localStorage.getItem('trip')) {
       this.timeline = JSON.parse(localStorage.getItem('trip'));
     }
+  }
+
+  next() {
+    this.lineIndex++;
   }
 
   logout() {

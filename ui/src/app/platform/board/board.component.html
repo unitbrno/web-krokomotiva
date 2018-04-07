@@ -31,7 +31,7 @@
 
     <mat-card-content>
         <mat-list role="list">
-            <mat-list-item *ngFor="let item of timeline; let idx = index">
+            <mat-list-item *ngFor="let item of timeline; let idx = index" [ngClass]="{'now': idx == lineIndex}">
               <div class="numberCircle">{{ idx + 1}}</div>
               <div>{{ item.name }} - {{ item.duration | amDuration:'seconds'}} - MHD: {{ item.transitToNext | amDuration:'seconds'}}</div>
             </mat-list-item>
@@ -39,7 +39,7 @@
     </mat-card-content>
 
     <mat-card-actions align="center">
-      <button color="primary" mat-button-raised mat-button>Next Place</button>
+      <button color="primary" mat-button-raised mat-button (click)="next()">Next Place</button>
     </mat-card-actions>
   </mat-card>
 
